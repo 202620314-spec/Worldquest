@@ -1,0 +1,395 @@
+<div id="app">
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="topbar">
+    <div class="logo">📚 WORD QUEST</div>
+
+```
+<div class="player-info">
+  <div class="level">
+    <span id="levelText">Lv.1</span>
+    <div class="xp-box">
+      <div id="xpFill"></div>
+    </div>
+    <span id="xpText">0 / 50 XP</span>
+  </div>
+
+  <div class="coins">🪙 <span id="coinText">0</span></div>
+</div>
+```
+
+  </header>
+
+  <!-- ================= NAV ================= -->
+
+  <nav class="nav">
+    <button onclick="showPage('booksPage')">📚 단어장</button>
+    <button onclick="showPage('shopPage')">🛒 상점</button>
+  </nav>
+
+  <!-- ================= BOOKS PAGE ================= -->
+
+  <section id="booksPage" class="page active">
+
+```
+<div class="page-title">
+  <h1>📚 나의 단어장</h1>
+  <p>공부할 단어장을 만들어보세요!</p>
+</div>
+
+<div id="bookList" class="book-list"></div>
+
+<button class="main-btn" onclick="openCreateBook()">
+  ＋ 새 단어장 만들기
+</button>
+```
+
+  </section>
+
+  <!-- ================= BOOK DETAIL ================= -->
+
+  <section id="bookPage" class="page">
+
+```
+<button class="back-btn" onclick="showPage('booksPage')">
+  ← 단어장 목록
+</button>
+
+<div class="book-header">
+  <div>
+    <h1 id="currentBookTitle">단어장</h1>
+    <p id="currentBookCount">0개의 단어</p>
+  </div>
+
+  <button class="delete-book-btn" onclick="deleteCurrentBook()">
+    🗑️ 삭제
+  </button>
+</div>
+
+<!-- 숙련도 -->
+<div class="mastery-summary">
+  <div class="mastery-box perfect">
+    🟢 <span id="perfectCount">0</span>
+    <small>완벽</small>
+  </div>
+
+  <div class="mastery-box practice">
+    🟡 <span id="practiceCount">0</span>
+    <small>연습 중</small>
+  </div>
+
+  <div class="mastery-box review">
+    🔴 <span id="reviewCount">0</span>
+    <small>복습 필요</small>
+  </div>
+</div>
+
+<!-- 학습 버튼 -->
+<div class="action-grid">
+
+  <button onclick="startStudy()">
+    🧠
+    <span>전체 암기</span>
+  </button>
+
+  <button onclick="startQuiz()">
+    📝
+    <span>전체 퀴즈</span>
+  </button>
+
+  <button onclick="startReviewQuiz()">
+    🔄
+    <span>복습 퀴즈</span>
+  </button>
+
+  <button onclick="startWritingPractice()">
+    ✏️
+    <span>해석 연습장</span>
+  </button>
+
+</div>
+
+<!-- 단어 추가 -->
+<div class="add-word-box">
+
+  <h2>➕ 단어 추가</h2>
+
+  <div class="input-row">
+    <input
+      id="englishInput"
+      placeholder="영어 단어"
+    >
+
+    <input
+      id="koreanInput"
+      placeholder="한국어 뜻"
+    >
+
+    <button onclick="addWord()">추가</button>
+  </div>
+
+</div>
+
+<!-- 단어 목록 -->
+<div>
+  <h2 class="section-title">📖 단어 목록</h2>
+  <div id="wordList"></div>
+</div>
+```
+
+  </section>
+
+  <!-- ================= STUDY PAGE ================= -->
+
+  <section id="studyPage" class="page">
+
+```
+<button class="back-btn" onclick="openCurrentBook()">
+  ← 돌아가기
+</button>
+
+<div class="study-area">
+
+  <div class="study-progress" id="studyProgress">
+    1 / 1
+  </div>
+
+  <div
+    id="flashcard"
+    class="flashcard"
+    onclick="flipCard()"
+  >
+
+    <div class="card-inner">
+
+      <div class="card-front">
+        <span>ENGLISH</span>
+        <strong id="studyEnglish">apple</strong>
+        <small>카드를 눌러 뜻 보기</small>
+      </div>
+
+      <div class="card-back">
+        <span>KOREAN</span>
+        <strong id="studyKorean">사과</strong>
+        <small>카드를 눌러 다시 보기</small>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="study-buttons">
+    <button onclick="prevCard()">← 이전</button>
+    <button onclick="flipCard()">🔄 뒤집기</button>
+    <button onclick="nextCard()">다음 →</button>
+  </div>
+
+</div>
+```
+
+  </section>
+
+  <!-- ================= QUIZ PAGE ================= -->
+
+  <section id="quizPage" class="page">
+
+```
+<button class="back-btn" onclick="openCurrentBook()">
+  ← 단어장으로
+</button>
+
+<div class="quiz-header">
+  <div>
+    <span id="quizType">전체 퀴즈</span>
+    <h2 id="quizScore">점수: 0</h2>
+  </div>
+
+  <div id="quizProgress">1 / 1</div>
+</div>
+
+<div class="quiz-card">
+
+  <div class="quiz-label">다음 단어의 뜻은?</div>
+
+  <div id="quizEnglish" class="quiz-word">
+    apple
+  </div>
+
+  <div id="answerArea" class="answer-area"></div>
+
+  <div id="quizFeedback" class="quiz-feedback"></div>
+
+  <button
+    id="nextQuizBtn"
+    class="next-btn hidden"
+    onclick="nextQuestion()"
+  >
+    다음 문제 →
+  </button>
+
+</div>
+```
+
+  </section>
+
+  <!-- ================= WRITING PAGE ================= -->
+
+  <section id="writingPage" class="page">
+
+```
+<button class="back-btn" onclick="openCurrentBook()">
+  ← 단어장으로
+</button>
+
+<div class="writing-card">
+
+  <div class="writing-title">
+    ✏️ 해석 연습장
+  </div>
+
+  <p>다음 영어 단어의 뜻을 직접 입력하세요.</p>
+
+  <div id="writingProgress">
+    1 / 1
+  </div>
+
+  <div id="writingEnglish">
+    apple
+  </div>
+
+  <input
+    id="writingInput"
+    placeholder="한국어 뜻을 입력하세요"
+    autocomplete="off"
+  >
+
+  <button
+    class="check-writing-btn"
+    onclick="checkWritingAnswer()"
+  >
+    정답 확인
+  </button>
+
+  <div id="writingFeedback"></div>
+
+  <button
+    id="nextWritingBtn"
+    class="next-btn hidden"
+    onclick="nextWritingQuestion()"
+  >
+    다음 →
+  </button>
+
+</div>
+```
+
+  </section>
+
+  <!-- ================= SHOP PAGE ================= -->
+
+  <section id="shopPage" class="page">
+
+```
+<div class="page-title">
+
+  <h1>🛒 배경 상점</h1>
+
+  <p>
+    코인으로 새로운 배경을 구매해보세요!
+  </p>
+
+</div>
+
+<div class="shop-grid">
+
+  <div class="shop-card">
+    <div class="shop-preview grass-preview">🌾</div>
+    <h3>초원</h3>
+    <p>100 🪙</p>
+    <button onclick="buyBackground('grass',100)">
+      구매 / 적용
+    </button>
+  </div>
+
+  <div class="shop-card">
+    <div class="shop-preview cave-preview">🪨</div>
+    <h3>동굴</h3>
+    <p>150 🪙</p>
+    <button onclick="buyBackground('cave',150)">
+      구매 / 적용
+    </button>
+  </div>
+
+  <div class="shop-card">
+    <div class="shop-preview space-preview">🚀</div>
+    <h3>우주</h3>
+    <p>250 🪙</p>
+    <button onclick="buyBackground('space',250)">
+      구매 / 적용
+    </button>
+  </div>
+
+  <div class="shop-card">
+    <div class="shop-preview ruins-preview">🏛️</div>
+    <h3>유적</h3>
+    <p>500 🪙</p>
+    <button onclick="buyBackground('ruins',500)">
+      구매 / 적용
+    </button>
+  </div>
+
+  <div class="shop-card">
+    <div class="shop-preview retro-preview">📺</div>
+    <h3>레트로</h3>
+    <p>750 🪙</p>
+    <button onclick="buyBackground('retro',750)">
+      구매 / 적용
+    </button>
+  </div>
+
+  <div class="shop-card">
+    <div class="shop-preview gold-preview">👑</div>
+    <h3>황금</h3>
+    <p>1000 🪙</p>
+    <button onclick="buyBackground('gold',1000)">
+      구매 / 적용
+    </button>
+  </div>
+
+</div>
+```
+
+  </section>
+
+  <!-- ================= BOOK MODAL ================= -->
+
+  <div id="bookModal" class="modal">
+
+```
+<div class="modal-content">
+
+  <button class="close-modal" onclick="closeModal()">×</button>
+
+  <h2>📚 새 단어장</h2>
+
+  <p>단어장의 이름을 입력하세요.</p>
+
+  <input
+    id="bookNameInput"
+    placeholder="예: 1-2"
+  >
+
+  <button
+    class="main-btn"
+    onclick="createBook()"
+  >
+    만들기
+  </button>
+
+</div>
+```
+
+  </div>
+
+</div>
